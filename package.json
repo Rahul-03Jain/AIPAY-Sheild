@@ -1,0 +1,23 @@
+{
+  "name": "ai-smart-payment-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend/api-gateway",
+    "backend/auth-service",
+    "payment-service",
+    "fraud-detection-service",
+    "analytics-service",
+    "notification-service"
+  ],
+  "scripts": {
+    "lint": "echo \"Add root linting or use per-service linters\"",
+    "test": "echo \"Run tests in individual services\"",
+    "seed": "node database/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "pg": "^8.11.3"
+  }
+}
