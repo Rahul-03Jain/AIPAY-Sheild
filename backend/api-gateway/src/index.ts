@@ -21,16 +21,15 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Default to local services for non-Docker development.
-const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || "http://localhost:4001";
+const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || "http://auth-service:4001";
 const PAYMENT_SERVICE_URL =
-  process.env.PAYMENT_SERVICE_URL || "http://localhost:4002";
+  process.env.PAYMENT_SERVICE_URL || "http://payment-service:4002";
 const FRAUD_SERVICE_URL =
-  process.env.FRAUD_SERVICE_URL || "http://localhost:8000";
+  process.env.FRAUD_SERVICE_URL || "http://fraud-detection-service:8000";
 const ANALYTICS_SERVICE_URL =
-  process.env.ANALYTICS_SERVICE_URL || "http://localhost:4004";
+  process.env.ANALYTICS_SERVICE_URL || "http://analytics-service:4004";
 const NOTIFICATION_SERVICE_URL =
-  process.env.NOTIFICATION_SERVICE_URL || "http://localhost:4005";
+  process.env.NOTIFICATION_SERVICE_URL || "http://notification-service:4005";
 
 const JWT_PUBLIC_KEY = process.env.JWT_PUBLIC_KEY;
 

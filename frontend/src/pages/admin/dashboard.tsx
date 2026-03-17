@@ -19,7 +19,6 @@ type TxPreview = {
   fraud_risk_level?: string | null;
   created_at: string;
 };
-
 function CreatePaymentForm({
   userId,
   merchantId,
@@ -202,7 +201,13 @@ export default function AdminDashboard() {
         style={{ backgroundColor: "#020617" }}
       >
         <div className="flex flex-col items-center gap-4">
+<<<<<<< HEAD
           <div className="h-10 w-10 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent" />
+=======
+          <div
+            className="h-10 w-10 animate-spin rounded-full border-2 border-emerald-500 border-t-transparent"
+          />
+>>>>>>> origin/main
           <p className="text-sm text-slate-400">Connecting to analytics engine...</p>
         </div>
       </div>

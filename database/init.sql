@@ -52,7 +52,6 @@ CREATE TABLE IF NOT EXISTS transactions (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   completed_at TIMESTAMPTZ
 );
-
 CREATE INDEX IF NOT EXISTS idx_transactions_user_created_at
   ON transactions (user_id, created_at DESC);
 
@@ -61,7 +60,6 @@ CREATE INDEX IF NOT EXISTS idx_transactions_merchant_created_at
 
 CREATE INDEX IF NOT EXISTS idx_transactions_status_created_at
   ON transactions (status, created_at DESC);
-
 CREATE TABLE IF NOT EXISTS notifications (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   type VARCHAR(64) NOT NULL,

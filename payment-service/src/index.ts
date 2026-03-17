@@ -51,7 +51,6 @@ function transactionListQuery(filterColumn: "user_id" | "merchant_id") {
           ORDER BY t.created_at DESC
           LIMIT $2 OFFSET $3`;
 }
-
 app.post("/create-payment", async (req, res) => {
   const {
     user_id,
