@@ -1,0 +1,76 @@
+version: "3.9"
+services:
+  api-gateway:
+    build: ../backend/api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - AUTH_SERVICE_URL=http://auth-service:4001
+      - PAYMENT_SERVICE_URL=http://payment-service:4002
+      - FRAUD_SERVICE_URL=http://fraud-detection-service:8000
+      - ANALYTICS_SERVICE_URL=http://analytics-service:4004
+      - NOTIFICATION_SERVICE_URL=http://notification-service:4005
+    depends_on:
+      - auth-service
+      - payment-service
+      - fraud-detection-service
+
+  auth-service:
+    build: ../backend/auth-service
+    environment:
+      - DATABASE_URL=postgres://fintech:fintech@postgres:5432/fintech
+    depends_on:
+      - postgres
+
+  payment-service:
+    build: ../payment-service
+    environment:
+      - DATABASE_URL=postgres://fintech:fintech@postgres:5432/fintech
+      - FRAUD_SERVICE_URL=http://fraud-detection-service:8000
+      - CURRENCY_SERVICE_URL=http://currency-service:4006
+      - ANALYTICS_SERVICE_URL=http://analytics-service:4004
+      - NOTIFICATION_SERVICE_URL=http://notification-service:4005
+    depends_on:
+      - postgres
+      - fraud-detection-service
+      - currency-service
+
+  currency-service:
+    build: ../currency-service
+    ports:
+      - "4006:4006"
+
+  fraud-detection-service:
+    build: ../fraud-detection-service
+    ports:
+      - "4003:8000"
+
+  analytics-service:
+    build: ../analytics-service
+    ports:
+      - "4004:4004"
+
+  notification-service:
+    build: ../notification-service
+    environment:
+      - DATABASE_URL=postgres://fintech:fintech@postgres:5432/fintech
+    ports:
+      - "4005:4005"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: fintech
+      POSTGRES_PASSWORD: fintech
+      POSTGRES_DB: fintech
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ../database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  pgdata: {}
+
